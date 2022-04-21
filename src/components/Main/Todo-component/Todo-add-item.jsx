@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
 export class TodoAddItem extends Component {
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  // }
 
   render() {
     return (
-      <form action="" className="todo_input">
+      <form action="#" className="todo_input">
         <input
           onChange={this.props.inputValue}
           type="text"
