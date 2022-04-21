@@ -1,8 +1,6 @@
 html,body,#root{
   height: 100%;
 }
-
-
 .wrapper{
   min-height: 100%;
   display: flex;
@@ -12,20 +10,5 @@ html,body,#root{
   margin: 0;
   padding: 0;
 }
-.header{
-  padding: 10px;
-  text-align: center;
-  background-color: aquamarine;
-}
-.main-container{
-  flex: 1 1 auto;
-  padding: 20px;
-  background-color: bisque;
-}
-.footer{
-  background-color: cadetblue;
-  p{
-    text-align: center;
-    color: white;
-  }
-}
+
+
