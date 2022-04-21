@@ -2,64 +2,42 @@ import React, { Component } from "react";
 import "./Todo-style.scss";
 
 export class TodoItem extends Component {
-  constructor() {
-    super();
-    this.OnDoneBtnClick = this.OnDoneBtnClick.bind(this);
-    this.OnDelBtnClick = this.OnDelBtnClick.bind(this);
-  }
-
   render() {
-    const state = this.props.state;
+    const todo = this.props.todo;
+    const { completed, title, id } = todo;
     return (
-      <ul>
-        {state.map((el, index) => {
-          return (
-            <div
-              key={index}
-              style={this.todo_item_style(el)}
-              className="todo_item"
-            >
-              <button
-                data-id={index}
-                disabled={el.completed}
-                className="todo_item__btn_done"
-                onClick={this.OnDoneBtnClick}
-              >
-                DONE
-              </button>
-              <li
-                style={this.todo_item_list_style(el)}
-                className="todo_item__list"
-              >
-                {el.title}
-              </li>
-              <button
-                onClick={this.OnDelBtnClick}
-                className="todo_item__btn_delet"
-              >
-                DEL
-              </button>
-            </div>
-          );
-        })}
-      </ul>
+      <div style={this.todo_item_style(completed)} className="todo_item">
+        <button
+          disabled={completed}
+          className="todo_item__btn_done"
+          onClick={() => {
+            this.props.OnDoneBtnClick(id);
+          }}
+        >
+          DONE
+        </button>
+        <li
+          key={id}
+          style={this.todo_item_list_style(completed)}
+          className="todo_item__list"
+        >
+          {title}
+        </li>
+        <button
+          onClick={() => {
+            this.props.OnDelBtnClick(id);
+          }}
+          className="todo_item__btn_delet"
+        >
+          DEL
+        </button>
+      </div>
     );
   }
-  todo_item_style(el) {
-    return { backgroundColor: !el.completed ? "transparent" : "#6890b0" };
+  todo_item_style(completed) {
+    return { backgroundColor: !completed ? "transparent" : "#6890b0" };
   }
-  todo_item_list_style(el) {
-    return { textDecoration: !el.completed ? "none" : "line-through" };
-  }
-  OnDoneBtnClick(e) {
-    let itemId = e.target.dataset.id;
-    const todoStatus = this.props.state;
-    this.setState({ todoStatus: (todoStatus[itemId].completed = true) });
-  }
-  OnDelBtnClick(e) {
-    let itemId = e.target.dataset.id;
-    console.log(`del click`);
-    const todoStatus = this.props.state;
-    this.setState({ todoStatus: todoStatus.splice(itemId - 1, 1) });
+  todo_item_list_style(completed) {
+    return { textDecoration: !completed ? "none" : "line-through" };
   }
 }

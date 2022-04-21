@@ -18,7 +18,7 @@ export class Header extends Component {
     // const { visible, Surname, Name, foods } = this.state;
     return (
       <header className="header">
-        <h1 className="header_title">header</h1>
+        <h1 className="header_title">ToDo</h1>
         <p className="header_paragraph">
           {/* {visible && <span>{`${Surname} ${Name}`}</span>} */}
         </p>
