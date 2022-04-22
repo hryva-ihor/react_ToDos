@@ -12,7 +12,7 @@ export class TodoAddItem extends Component {
           onChange={this.props.inputValue}
           type="text"
           placeholder="Enter ToDo list"
-          value={this.props.newInputText}
+          value={this.props.titleValue}
         />
         <button onClick={this.props.addNewTodoList}>ADD</button>
       </form>

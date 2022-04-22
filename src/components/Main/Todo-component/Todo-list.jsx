@@ -16,13 +16,13 @@ export class TodoList extends Component {
   }
 
   render() {
-    const state = this.state;
+    console.log(`totolist`, this.state.newInputText);
     return (
       <div>
         <TodoAddItem
           inputValue={this.inputValue}
           addNewTodoList={this.addNewTodoList}
-          titleValue={state.newInputText}
+          titleValue={this.state.newInputText}
         />
         <ul>
           {this.state.todos.map((todo, index) => {
@@ -67,29 +67,32 @@ export class TodoList extends Component {
       .then((resp) => resp.json())
       .then((data) => this.setState({ todos: data }));
   }
-  inputValue(e = ``) {
-    const inputTextValue = e ? e.target.value : ``;
-    this.setState({ newInputText: inputTextValue });
+  inputValue(e) {
+    return this.setState({ newInputText: e.target.value });
   }
   addNewTodoList(e) {
     e.preventDefault();
-    const newTodoList = {
-      title: this.state.newInputText,
-      completed: false,
-    };
-    fetch("https://61e7eaede32cd90017acbe93.mockapi.io/ToDos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newTodoList),
-    })
-      .then((resp) => resp.json())
-      .then((data) =>
-        this.setState({
-          todos: [...this.state.todos, data],
-          newInputText: "",
-        })
-      );
+    if (this.state.newInputText) {
+      const newTodoList = {
+        title: this.state.newInputText,
+        completed: false,
+      };
+      fetch("https://61e7eaede32cd90017acbe93.mockapi.io/ToDos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTodoList),
+      })
+        .then((resp) => resp.json())
+        .then((data) =>
+          this.setState({
+            todos: [...this.state.todos, data],
+            newInputText: "",
+          })
+        );
+    } else {
+      return false;
+    }
   }
 }
