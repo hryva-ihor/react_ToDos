@@ -2,6 +2,8 @@ import { Component } from "react";
 import { TodoAddItem } from "./Todo-add-item";
 import { TodoItem } from "./Todo-item";
 
+const API = "https://61e7eaede32cd90017acbe93.mockapi.io/ToDos";
+
 export class TodoList extends Component {
   state = {
     todos: [],
@@ -16,7 +18,7 @@ export class TodoList extends Component {
   }
 
   render() {
-    console.log(`totolist`, this.state.newInputText);
+    // console.log(`totolist`, this.state.newInputText);
     return (
       <div>
         <TodoAddItem
@@ -43,7 +45,7 @@ export class TodoList extends Component {
   OnDoneBtnClick(id) {
     const item = this.state.todos.find((todo) => todo.id === id);
     const newItem = { ...item, completed: !item.completed };
-    fetch("https://61e7eaede32cd90017acbe93.mockapi.io/ToDos" + "/" + id, {
+    fetch(API + "/" + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +57,7 @@ export class TodoList extends Component {
     });
   }
   OnDelBtnClick(id) {
-    fetch("https://61e7eaede32cd90017acbe93.mockapi.io/ToDos" + "/" + id, {
+    fetch(API + "/" + id, {
       method: "DELETE",
     });
 
@@ -63,7 +65,7 @@ export class TodoList extends Component {
     this.setState({ todos: newTodos });
   }
   componentDidMount() {
-    fetch("https://61e7eaede32cd90017acbe93.mockapi.io/ToDos")
+    fetch(API)
       .then((resp) => resp.json())
       .then((data) => this.setState({ todos: data }));
   }
@@ -77,7 +79,7 @@ export class TodoList extends Component {
         title: this.state.newInputText,
         completed: false,
       };
-      fetch("https://61e7eaede32cd90017acbe93.mockapi.io/ToDos", {
+      fetch(API, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -8,7 +8,7 @@
 
   justify-content: space-between;
   &__btn_done{
-      background-color: rgb(29, 180, 29);
+      background-color: #1db41d;
   }
   &__btn_delet{
       background-color: rgb(241, 1, 1);
@@ -28,12 +28,12 @@ button{
     transform: scale(1.05);
     transition: all .2s;
   }
-  &:disabled{
-    background-color: grey;
-    box-shadow: none;
-    transform: none;
-    cursor:not-allowed ;
-  }
+  // &:disabled{
+  //   background-color: grey;
+  //   box-shadow: none;
+  //   transform: none;
+  //   cursor:not-allowed ;
+  // }
 }
 .todo_input{
   display: flex;

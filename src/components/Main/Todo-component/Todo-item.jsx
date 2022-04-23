@@ -8,13 +8,14 @@ export class TodoItem extends Component {
     return (
       <div style={this.todo_item_style(completed)} className="todo_item">
         <button
-          disabled={completed}
+          style={this.todo_btn_style(completed)}
+          className="todo_item"
           className="todo_item__btn_done"
           onClick={() => {
             this.props.OnDoneBtnClick(id);
           }}
         >
-          DONE
+          {completed ? "Return?" : "DONE"}
         </button>
         <li
           key={id}
@@ -35,9 +36,17 @@ export class TodoItem extends Component {
     );
   }
   todo_item_style(completed) {
-    return { backgroundColor: !completed ? "transparent" : "#6890b0" };
+    return {
+      backgroundColor: !completed ? "transparent" : "#6890b0",
+    };
   }
   todo_item_list_style(completed) {
     return { textDecoration: !completed ? "none" : "line-through" };
+  }
+  todo_btn_style(completed) {
+    return {
+      backgroundColor: !completed ? "#1db41d" : "yellow",
+      color: !completed ? "white" : "black",
+    };
   }
 }
