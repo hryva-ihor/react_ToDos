@@ -12,6 +12,7 @@ import { TodoItem } from "./Todo-options/Todo-item";
 
 export const TodoList = () => {
   const [todos, setTodos] = useState([]);
+  const [status, setStatus] = useState("Idle");
   const [newInputText, setNewInputText] = useState("");
   const [filter, setFilter] = useLocalStorage("filter", "all");
 
@@ -28,7 +29,15 @@ export const TodoList = () => {
   //, [filter, todos]);
 
   useEffect(() => {
-    getTodosData().then((data) => setTodos(data));
+    setStatus("Progress");
+    getTodosData()
+      .then((data) => setTodos(data))
+      .then(() => {
+        setStatus("Loaded");
+      })
+      .catch(() => {
+        setStatus("Error");
+      });
   }, []);
 
   const OnDoneBtnClick = (id) => {
@@ -67,9 +76,32 @@ export const TodoList = () => {
     }
   }; //   [todos]
   // );
-
+  const loadStatusColor = (status) => {
+    let color;
+    switch (status) {
+      case "Idle":
+        color = "gray";
+        break;
+      case "Progress":
+        color = "orange";
+        break;
+      case "Error":
+        color = "red";
+        break;
+      case "Loaded":
+        color = "green";
+        break;
+      default:
+        color = "red";
+    }
+    return color;
+  };
   return (
     <div>
+      <h5>
+        Load status:{" "}
+        <span style={{ color: loadStatusColor(status) }}>{status}</span>{" "}
+      </h5>
       <TodoFilter filter={filter} setFilter={setFilter} />
       <TodoAddItem
         inputValue={inputValue}
