@@ -1,100 +1,94 @@
-import { Component } from "react";
-import { TodoAddItem } from "./Todo-add-item";
-import { TodoItem } from "./Todo-item";
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "../../../hooks/common";
+import {
+  getTodosData,
+  deletTodo,
+  updateDoneTodos,
+  addNewTodo,
+} from "../../../services/serveces";
+import { TodoAddItem } from "./Todo-options/Todo-add-item";
+import { TodoFilter } from "./Todo-options/Todo-filter";
+import { TodoItem } from "./Todo-options/Todo-item";
 
-const API = "https://61e7eaede32cd90017acbe93.mockapi.io/ToDos";
+export const TodoList = () => {
+  const [todos, setTodos] = useState([]);
+  const [newInputText, setNewInputText] = useState("");
+  const [filter, setFilter] = useLocalStorage("filter", "all");
 
-export class TodoList extends Component {
-  state = {
-    todos: [],
-    newInputText: "",
-  };
-  constructor() {
-    super();
-    this.OnDoneBtnClick = this.OnDoneBtnClick.bind(this);
-    this.OnDelBtnClick = this.OnDelBtnClick.bind(this);
-    this.inputValue = this.inputValue.bind(this);
-    this.addNewTodoList = this.addNewTodoList.bind(this);
+  //const filterTodos = useMemo(() => {}
+  let filterTodos = todos;
+  if (filter !== "all") {
+    filterTodos = todos.filter((todo) => {
+      return (
+        (filter === "done" && todo.completed) ||
+        (filter === "notDone" && !todo.completed)
+      );
+    });
   }
+  //, [filter, todos]);
 
-  render() {
-    // console.log(`totolist`, this.state.newInputText);
-    return (
-      <div>
-        <TodoAddItem
-          inputValue={this.inputValue}
-          addNewTodoList={this.addNewTodoList}
-          titleValue={this.state.newInputText}
-        />
-        <ul>
-          {this.state.todos.map((todo, index) => {
-            return (
-              <TodoItem
-                todo={todo}
-                key={todo.id}
-                index={index}
-                OnDoneBtnClick={this.OnDoneBtnClick}
-                OnDelBtnClick={this.OnDelBtnClick}
-              />
-            );
-          })}
-        </ul>
-      </div>
-    );
-  }
-  OnDoneBtnClick(id) {
-    const item = this.state.todos.find((todo) => todo.id === id);
+  useEffect(() => {
+    getTodosData().then((data) => setTodos(data));
+  }, []);
+
+  const OnDoneBtnClick = (id) => {
+    const item = todos.find((todo) => todo.id === id);
     const newItem = { ...item, completed: !item.completed };
-    fetch(API + "/" + id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newItem),
-    });
-    this.setState({
-      todos: this.state.todos.map((item) => (item.id === id ? newItem : item)),
-    });
-  }
-  OnDelBtnClick(id) {
-    fetch(API + "/" + id, {
-      method: "DELETE",
-    });
+    updateDoneTodos(newItem, id);
+    let newTodos = todos.map((item) => (item.id === id ? newItem : item));
+    setTodos(newTodos);
+  };
 
-    const newTodos = this.state.todos.filter((todo) => todo.id !== id);
-    this.setState({ todos: newTodos });
-  }
-  componentDidMount() {
-    fetch(API)
-      .then((resp) => resp.json())
-      .then((data) => this.setState({ todos: data }));
-  }
-  inputValue(e) {
-    return this.setState({ newInputText: e.target.value });
-  }
-  addNewTodoList(e) {
+  const OnDelBtnClick = (id) => {
+    deletTodo(id);
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+  };
+
+  const inputValue = (e) => {
+    return setNewInputText(e.target.value);
+  };
+
+  // const addNewTodoList = useCallback(
+  //   (e) => {
+  const addNewTodoList = (e) => {
     e.preventDefault();
-    if (this.state.newInputText) {
+    if (newInputText) {
       const newTodoList = {
-        title: this.state.newInputText,
+        title: newInputText,
         completed: false,
       };
-      fetch(API, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newTodoList),
-      })
-        .then((resp) => resp.json())
-        .then((data) =>
-          this.setState({
-            todos: [...this.state.todos, data],
-            newInputText: "",
-          })
-        );
+      addNewTodo(newTodoList).then((data) => {
+        setTodos([...todos, data]);
+        setNewInputText("");
+      });
     } else {
       return false;
     }
-  }
-}
+  }; //   [todos]
+  // );
+
+  return (
+    <div>
+      <TodoFilter filter={filter} setFilter={setFilter} />
+      <TodoAddItem
+        inputValue={inputValue}
+        addNewTodoList={addNewTodoList}
+        titleValue={newInputText}
+      />
+      <ul>
+        {filterTodos.map((todo, index) => {
+          return (
+            <TodoItem
+              todo={todo}
+              key={todo.id}
+              index={index}
+              OnDoneBtnClick={OnDoneBtnClick}
+              OnDelBtnClick={OnDelBtnClick}
+            />
+          );
+        })}
+      </ul>
+    </div>
+  );
+};

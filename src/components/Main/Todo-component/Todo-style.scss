@@ -41,11 +41,25 @@ button{
   padding: 10px;
   input{
       padding: 5px ;
+      border-radius: 5px;
   }
   button{
     color: indigo;
     background-color: greenyellow;
     border: 1px solid green;
 
+  }
+}
+.todo-filter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  label{
+    margin-right: 10px;
+  }
+  select{
+    padding: 5px 10px;
+    border-radius: 5px;
+    
   }
 }
