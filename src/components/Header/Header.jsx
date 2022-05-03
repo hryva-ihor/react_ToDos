@@ -9,10 +9,10 @@ export class Header extends Component {
   //   foods: ["eggs", "bread", "apple", "banana"],
   // };
 
-  constructor() {
-    super();
-    // this.OnBtnClick = this.OnBtnClick.bind(this);
-  }
+  // constructor() {
+  //   super();
+  //   // this.OnBtnClick = this.OnBtnClick.bind(this);
+  // }
 
   render() {
     // const { visible, Surname, Name, foods } = this.state;

@@ -1,0 +1,13 @@
+.header {
+  padding: 10px;
+  text-align: center;
+  background-color: #a2ebf8;
+}
+
+.header p {
+  margin-top: 10px;
+}
+
+.header button {
+  margin: 20px;
+}

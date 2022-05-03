@@ -1,0 +1,83 @@
+.todo_item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px;
+  border: 1px solid black;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.todo_item li {
+  list-style-type: none;
+}
+
+.todo_item__btn_done {
+  background-color: #1db41d;
+}
+
+.todo_item__btn_delet {
+  background-color: #f10101;
+}
+
+button {
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0 20px;
+  border: none;
+}
+
+button:hover {
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 0px 5px rgba(28, 199, 42, 0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 0px 5px rgba(28, 199, 42, 0);
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.todo_input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 10px;
+}
+
+.todo_input input {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.todo_input button {
+  color: indigo;
+  background-color: greenyellow;
+  border: 1px solid green;
+}
+
+.todo-filter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.todo-filter label {
+  margin-right: 10px;
+}
+
+.todo-filter select {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
