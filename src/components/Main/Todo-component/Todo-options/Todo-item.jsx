@@ -1,3 +1,8 @@
+import {
+  todoItemStyle,
+  todoItemListStyle,
+  todoBtnStyle,
+} from "../../../custom.js/style";
 import "../Todo-style.scss";
 
 export const TodoItem = (props) => {
@@ -5,9 +10,9 @@ export const TodoItem = (props) => {
   const { completed, title, id } = todo;
 
   return (
-    <div style={todo_item_style(completed)} className="todo_item">
+    <div style={todoItemStyle(completed)} className="todo_item">
       <button
-        style={todo_btn_style(completed)}
+        style={todoBtnStyle(completed)}
         className="todo_item__btn_done"
         onClick={() => {
           props.OnDoneBtnClick(id);
@@ -17,7 +22,7 @@ export const TodoItem = (props) => {
       </button>
       <li
         key={id}
-        style={todo_item_list_style(completed)}
+        style={todoItemListStyle(completed)}
         className="todo_item__list"
       >
         {title}
@@ -32,20 +37,6 @@ export const TodoItem = (props) => {
       </button>
     </div>
   );
-};
-const todo_item_style = (completed) => {
-  return {
-    backgroundColor: !completed ? "transparent" : "#6890b0",
-  };
-};
-const todo_item_list_style = (completed) => {
-  return { textDecoration: !completed ? "none" : "line-through" };
-};
-const todo_btn_style = (completed) => {
-  return {
-    backgroundColor: !completed ? "#1db41d" : "yellow",
-    color: !completed ? "white" : "black",
-  };
 };
 
 // export class TodoItem extends Component {

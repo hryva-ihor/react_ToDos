@@ -6,6 +6,7 @@ import {
   updateDoneTodos,
   addNewTodo,
 } from "../../../services/serveces";
+import { loadStatusFunc } from "../../custom.js/style";
 import { TodoAddItem } from "./Todo-options/Todo-add-item";
 import { TodoFilter } from "./Todo-options/Todo-filter";
 import { TodoItem } from "./Todo-options/Todo-item";
@@ -15,6 +16,8 @@ export const TodoList = () => {
   const [status, setStatus] = useState("Idle");
   const [newInputText, setNewInputText] = useState("");
   const [filter, setFilter] = useLocalStorage("filter", "all");
+  const [color, displayStatus] = loadStatusFunc(status);
+  // const [count, setCount] = useState(0);
 
   //const filterTodos = useMemo(() => {}
   let filterTodos = todos;
@@ -76,31 +79,27 @@ export const TodoList = () => {
     }
   }; //   [todos]
   // );
-  const loadStatusColor = (status) => {
-    let color;
-    switch (status) {
-      case "Idle":
-        color = "gray";
-        break;
-      case "Progress":
-        color = "orange";
-        break;
-      case "Error":
-        color = "red";
-        break;
-      case "Loaded":
-        color = "green";
-        break;
-      default:
-        color = "red";
-    }
-    return color;
-  };
+
+  // const Counter = (initialCount) => {
+  //   return (
+  //     <>
+  //       Count: {count}
+  //       <button onClick={() => setCount(initialCount)}>Скинути</button>
+  //       <button onClick={() => setCount((prevCount) => prevCount - 1)}>
+  //         -
+  //       </button>
+  //       <button onClick={() => setCount((prevCount) => prevCount + 1)}>
+  //         +
+  //       </button>
+  //     </>
+  //   );
+  // };
   return (
     <div>
+      {/* <div>{Counter(0)}</div> */}
+
       <h5>
-        Load status:{" "}
-        <span style={{ color: loadStatusColor(status) }}>{status}</span>{" "}
+        Load status: <span style={{ color: color }}>{status}</span>{" "}
       </h5>
       <TodoFilter filter={filter} setFilter={setFilter} />
       <TodoAddItem
@@ -108,7 +107,11 @@ export const TodoList = () => {
         addNewTodoList={addNewTodoList}
         titleValue={newInputText}
       />
-      <ul>
+      <div
+        style={{ display: !displayStatus ? "block" : "none" }}
+        className="lds-hourglass"
+      ></div>
+      <ul style={{ display: displayStatus ? "block" : "none" }}>
         {filterTodos.map((todo, index) => {
           return (
             <TodoItem
