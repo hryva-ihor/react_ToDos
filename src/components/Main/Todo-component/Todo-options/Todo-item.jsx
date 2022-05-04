@@ -1,18 +1,15 @@
-import {
-  todoItemStyle,
-  todoItemListStyle,
-  todoBtnStyle,
-} from "../../../custom.js/style";
+import { todoElementStyle } from "../../../custom.js/style";
 import "../Todo-style.scss";
 
 export const TodoItem = (props) => {
   const todo = props.todo;
   const { completed, title, id } = todo;
-
+  const { todoItemStyle, todoBtnStyle, todoItemListStyle } =
+    todoElementStyle(completed);
   return (
-    <div style={todoItemStyle(completed)} className="todo_item">
+    <div style={todoItemStyle} className="todo_item">
       <button
-        style={todoBtnStyle(completed)}
+        style={todoBtnStyle}
         className="todo_item__btn_done"
         onClick={() => {
           props.OnDoneBtnClick(id);
@@ -20,11 +17,7 @@ export const TodoItem = (props) => {
       >
         {completed ? "Return?" : "DONE"}
       </button>
-      <li
-        key={id}
-        style={todoItemListStyle(completed)}
-        className="todo_item__list"
-      >
+      <li key={id} style={todoItemListStyle} className="todo_item__list">
         {title}
       </li>
       <button
