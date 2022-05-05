@@ -6,7 +6,7 @@ import {
   updateDoneTodos,
   addNewTodo,
 } from "../../../services/serveces";
-import { loadStatusFunc } from "../../custom.js/style";
+import { loadStatusFunc } from "../../../custom.js/style";
 import { TodoAddItem } from "./Todo-options/Todo-add-item";
 import { TodoFilter } from "./Todo-options/Todo-filter";
 import { TodoItem } from "./Todo-options/Todo-item";
@@ -34,7 +34,9 @@ export const TodoList = () => {
   useEffect(() => {
     setStatus("Progress");
     getTodosData()
-      .then((data) => setTodos(data))
+      .then(({ data }) => {
+        setTodos(data);
+      })
       .then(() => {
         setStatus("Loaded");
       })
@@ -70,7 +72,8 @@ export const TodoList = () => {
         title: newInputText,
         completed: false,
       };
-      addNewTodo(newTodoList).then((data) => {
+      addNewTodo(newTodoList).then(({ data }) => {
+        console.log(data);
         setTodos([...todos, data]);
         setNewInputText("");
       });
@@ -111,7 +114,7 @@ export const TodoList = () => {
         style={{ display: !displayStatus ? "block" : "none" }}
         className="lds-hourglass"
       ></div>
-      <ul style={{ display: displayStatus ? "block" : "none" }}>
+      <ul>
         {filterTodos.map((todo, index) => {
           return (
             <TodoItem

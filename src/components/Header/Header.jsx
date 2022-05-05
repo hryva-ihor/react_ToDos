@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Header.scss";
+import style from "./Header.module.scss";
 
 export class Header extends Component {
   // state = {
@@ -17,9 +17,9 @@ export class Header extends Component {
   render() {
     // const { visible, Surname, Name, foods } = this.state;
     return (
-      <header className="header">
-        <h1 className="header_title">ToDo</h1>
-        <p className="header_paragraph">
+      <header className={style.header}>
+        <h1 className={style.header_title}>ToDo</h1>
+        <p className={style.header_paragraph}>
           {/* {visible && <span>{`${Surname} ${Name}`}</span>} */}
         </p>
         {/* <ul>

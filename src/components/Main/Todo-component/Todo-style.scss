@@ -1,4 +1,4 @@
-.todo_item{
+.todo-item{
   display: flex;
   padding: 10px;
   li{
@@ -7,10 +7,10 @@
   border: 1px solid black;
 
   justify-content: space-between;
-  &__btn_done{
+  &__btn-done{
       background-color: #1db41d;
   }
-  &__btn_delet{
+  &__btn-delet{
       background-color: rgb(241, 1, 1);
   }
 }
@@ -35,7 +35,7 @@ button{
   //   cursor:not-allowed ;
   // }
 }
-.todo_input{
+.todo-input{
   display: flex;
   justify-content: center;
   padding: 10px;
@@ -80,7 +80,7 @@ button{
   height: 0;
   margin: 8px;
   box-sizing: border-box;
-  border: 122px solid rgb(237, 58, 58);
+  border: 100px solid rgb(237, 58, 58);
   border-color: rgb(237, 58, 58) transparent rgb(237, 58, 58) transparent;
   animation: lds-hourglass 1.2s infinite;
 }

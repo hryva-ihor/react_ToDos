@@ -1,4 +1,4 @@
-import { todoElementStyle } from "../../../custom.js/style";
+import { todoElementStyle } from "../../../../custom.js/style";
 import "../Todo-style.scss";
 
 export const TodoItem = (props) => {
@@ -7,24 +7,24 @@ export const TodoItem = (props) => {
   const { todoItemStyle, todoBtnStyle, todoItemListStyle } =
     todoElementStyle(completed);
   return (
-    <div style={todoItemStyle} className="todo_item">
+    <div style={todoItemStyle} className="todo-item">
       <button
         style={todoBtnStyle}
-        className="todo_item__btn_done"
+        className="todo-item__btn-done"
         onClick={() => {
           props.OnDoneBtnClick(id);
         }}
       >
         {completed ? "Return?" : "DONE"}
       </button>
-      <li key={id} style={todoItemListStyle} className="todo_item__list">
+      <li key={id} style={todoItemListStyle} className="todo-item__list">
         {title}
       </li>
       <button
         onClick={() => {
           props.OnDelBtnClick(id);
         }}
-        className="todo_item__btn_delet"
+        className="todo-item__btn-delet"
       >
         DEL
       </button>

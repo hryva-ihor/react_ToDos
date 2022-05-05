@@ -1,34 +1,25 @@
-const API = "https://61e7eaede32cd90017acbe93.mockapi.io/ToDos";
+import axios from "axios";
 
+const API = "https://61e7eaede32cd90017acbe93.mockapi.io/ToDos";
+const Axios = axios.create({
+  baseURL: API,
+  headers: {
+      "Content-Type": "application/json",
+    }
+});
 
 export const getTodosData = () => {
-    return fetch(API)
-    .then((resp) => resp.json())
+  return Axios.get()
 }
 
 export const updateDoneTodos = ((newItem,id) => {
-    return fetch(API + "/" + id, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newItem),
-    });
+  return Axios.put(id,newItem)
 })
 
 export const deletTodo = (id) => {
-    return fetch(API + "/" + id, {
-        method: "DELETE",
-    });
+  return Axios.delete(id)
 }
 
 export const addNewTodo = (newTodoList) => {
-    return fetch(API, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newTodoList),
-        })
-        .then((resp) => resp.json())
+  return Axios.post('',newTodoList)
 }
