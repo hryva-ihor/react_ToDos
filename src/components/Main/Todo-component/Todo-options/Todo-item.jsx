@@ -1,9 +1,9 @@
 import { todoElementStyle } from "../../../../custom.js/style";
 import "../Todo-style.scss";
-
 export const TodoItem = (props) => {
   const todo = props.todo;
   const { completed, title, id } = todo;
+
   const { todoItemStyle, todoBtnStyle, todoItemListStyle } =
     todoElementStyle(completed);
   return (

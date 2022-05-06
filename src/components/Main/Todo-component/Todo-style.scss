@@ -97,3 +97,13 @@ button{
     transform: rotate(1800deg);
   }
 }
+.todo__load-theme{
+  display: flex;
+  justify-content: space-between;
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  margin-bottom: 10px;
+}
