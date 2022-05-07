@@ -27,7 +27,7 @@ export const TodoItem = (props) => {
           >
             {title}
           </li>
-          <input
+          <textarea
             id={`input` + id}
             type="text"
             className="redact-input"

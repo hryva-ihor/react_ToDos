@@ -82,6 +82,7 @@ export const TodoList = () => {
         setNewInputText("");
       });
     } else {
+      alert("your todo list empty");
       return false;
     }
   }; //   [todos]
@@ -95,15 +96,23 @@ export const TodoList = () => {
     return setRedInputText(e.target.value);
   };
   const onSaveBtnClick = (id) => {
-    const item = todos.find((todo) => todo.id === id);
-    const newItem = { ...item, title: redInputText };
-    updateDoneTodos(newItem, id);
-    let newTodos = todos.map((item) => (item.id === id ? newItem : item));
-    setTodos(newTodos);
-    reductInputTitleClasses(id);
+    if (redInputText) {
+      const item = todos.find((todo) => todo.id === id);
+      const newItem = { ...item, title: redInputText };
+      updateDoneTodos(newItem, id);
+      let newTodos = todos.map((item) => (item.id === id ? newItem : item));
+      setTodos(newTodos);
+      reductInputTitleClasses(id);
+    } else {
+      alert("todo list is empty");
+      if (window.confirm("want delet todo list?")) {
+        OnDelBtnClick(id);
+      }
+      return false;
+    }
   };
   return (
-    <div>
+    <div className="todo-block">
       {/* <div>{Counter(0)}</div> */}
       <div className="todo__load-theme">
         <h5>

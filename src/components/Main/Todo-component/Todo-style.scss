@@ -1,9 +1,14 @@
+.todo-block{
+  max-width: 1200px;
+  margin: 0 auto;
+}
 .todo-item{
   display: flex;
   padding: 10px;
   li{
-      align-self: center;
-      list-style-type: none;
+    max-width: 800px;
+    align-self: center;
+    list-style-type: none;
   }
   border: 1px solid black;
 

@@ -1,10 +1,11 @@
 export const TodoAddItem = (props) => {
   return (
     <form action="#" className="todo-input">
-      <input
+      <textarea
         onChange={props.inputValue}
         type="text"
-        row="3"
+        rows="5"
+        cols="30"
         placeholder="Enter ToDo list"
         value={props.titleValue}
         // onBlur={() => {
