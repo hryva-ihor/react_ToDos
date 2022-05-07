@@ -6,7 +6,6 @@ import { useState } from "react";
 import { ThemeContext, themes } from "./context/context";
 
 
-
 function App() {
   const [currentTheme, setCurrentTheme] = useState(themes.light);
   const toggleTheme = () => {

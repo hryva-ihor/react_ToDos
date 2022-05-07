@@ -6,3 +6,16 @@
       flex-direction: column;
     }
   }
+.redact-input{
+  width: 100%;
+  max-width: 400px;
+  padding: 5px;
+  border: 2px dashed red;
+  display: none;
+}
+.classDisplayNone{
+  display: none !important;
+}
+.classDisplayBlock{
+  display: block !important;
+}

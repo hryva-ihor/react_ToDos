@@ -6,7 +6,10 @@ import {
   updateDoneTodos,
   addNewTodo,
 } from "../../../services/serveces";
-import { loadStatusFunc } from "../../../custom.js/style";
+import {
+  reductInputTitleClasses,
+  loadStatusFunc,
+} from "../../../custom.js/style";
 import { TodoAddItem } from "./Todo-options/Todo-add-item";
 import { TodoFilter } from "./Todo-options/Todo-filter";
 import { TodoItem } from "./Todo-options/Todo-item";
@@ -15,6 +18,7 @@ export const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("Idle");
   const [newInputText, setNewInputText] = useState("");
+  const [redInputText, setRedInputText] = useState("");
   const [filter, setFilter] = useLocalStorage("filter", "all");
   const [color, displayStatus] = loadStatusFunc(status);
   const { toggleTheme } = useContext(ThemeContext);
@@ -29,6 +33,7 @@ export const TodoList = () => {
       );
     });
   }
+
   //, [filter, todos]);
 
   useEffect(() => {
@@ -73,7 +78,6 @@ export const TodoList = () => {
         completed: false,
       };
       addNewTodo(newTodoList).then(({ data }) => {
-        console.log(data);
         setTodos([...todos, data]);
         setNewInputText("");
       });
@@ -82,7 +86,22 @@ export const TodoList = () => {
     }
   }; //   [todos]
   // );
-
+  const redactTitle = (id) => {
+    const item = todos.find((todo) => todo.id === id);
+    setRedInputText(item.title);
+    reductInputTitleClasses(id);
+  };
+  const onChangeRedactInput = (e) => {
+    return setRedInputText(e.target.value);
+  };
+  const onSaveBtnClick = (id) => {
+    const item = todos.find((todo) => todo.id === id);
+    const newItem = { ...item, title: redInputText };
+    updateDoneTodos(newItem, id);
+    let newTodos = todos.map((item) => (item.id === id ? newItem : item));
+    setTodos(newTodos);
+    reductInputTitleClasses(id);
+  };
   return (
     <div>
       {/* <div>{Counter(0)}</div> */}
@@ -112,8 +131,12 @@ export const TodoList = () => {
               todo={todo}
               key={todo.id}
               index={index}
+              onChangeRedactInput={onChangeRedactInput}
+              redInputValue={redInputText}
+              onSaveBtnClick={onSaveBtnClick}
               OnDoneBtnClick={OnDoneBtnClick}
               OnDelBtnClick={OnDelBtnClick}
+              redactTitle={redactTitle}
             />
           );
         })}
