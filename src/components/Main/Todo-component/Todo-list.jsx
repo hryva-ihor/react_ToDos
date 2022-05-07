@@ -3,7 +3,7 @@ import { useLocalStorage } from "../../../hooks/common";
 import {
   getTodosData,
   deletTodo,
-  updateDoneTodos,
+  updateTodos,
   addNewTodo,
 } from "../../../services/serveces";
 import {
@@ -53,7 +53,7 @@ export const TodoList = () => {
   const OnDoneBtnClick = (id) => {
     const item = todos.find((todo) => todo.id === id);
     const newItem = { ...item, completed: !item.completed };
-    updateDoneTodos(newItem, id);
+    updateTodos(newItem, id);
     let newTodos = todos.map((item) => (item.id === id ? newItem : item));
     setTodos(newTodos);
   };
@@ -91,6 +91,7 @@ export const TodoList = () => {
     const item = todos.find((todo) => todo.id === id);
     setRedInputText(item.title);
     reductInputTitleClasses(id);
+    document.querySelector(`#input${id}`).focus();
   };
   const onChangeRedactInput = (e) => {
     return setRedInputText(e.target.value);
@@ -99,7 +100,7 @@ export const TodoList = () => {
     if (redInputText) {
       const item = todos.find((todo) => todo.id === id);
       const newItem = { ...item, title: redInputText };
-      updateDoneTodos(newItem, id);
+      updateTodos(newItem, id);
       let newTodos = todos.map((item) => (item.id === id ? newItem : item));
       setTodos(newTodos);
       reductInputTitleClasses(id);

@@ -12,7 +12,7 @@ export const getTodosData = () => {
   return Axios.get()
 }
 
-export const updateDoneTodos = ((newItem,id) => {
+export const updateTodos = ((newItem,id) => {
   return Axios.put(id,newItem)
 })
 
