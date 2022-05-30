@@ -1,0 +1,97 @@
+.todo-block {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.todo-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: 1px solid #00d6fc;
+  border-radius: 5px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.todo-item__btn-done.save-btn {
+  display: none;
+}
+
+.todo-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 10px;
+}
+
+.todo-input input {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.lds-hourglass {
+  display: inline-block;
+  margin: 0 auto;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  -webkit-transform: translate(-100%, 100%);
+          transform: translate(-100%, 100%);
+}
+
+.lds-hourglass:after {
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  width: 0;
+  height: 0;
+  margin: 8px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 100px solid #61dafb;
+  border-color: #61dafb transparent #61dafb transparent;
+  -webkit-animation: lds-hourglass 1.2s infinite;
+          animation: lds-hourglass 1.2s infinite;
+}
+
+@-webkit-keyframes lds-hourglass {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+    -webkit-animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+            animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    -webkit-transform: rotate(900deg);
+            transform: rotate(900deg);
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    -webkit-transform: rotate(1800deg);
+            transform: rotate(1800deg);
+  }
+}
+
+@keyframes lds-hourglass {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+    -webkit-animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+            animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    -webkit-transform: rotate(900deg);
+            transform: rotate(900deg);
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    -webkit-transform: rotate(1800deg);
+            transform: rotate(1800deg);
+  }
+}

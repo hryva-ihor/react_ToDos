@@ -1,0 +1,47 @@
+.main-container {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  padding: 10px;
+}
+
+.main-container > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.redact-input {
+  display: none !important;
+  margin-right: 10px;
+  border-radius: 5px;
+  padding: 0 5px;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border: solid 1px #00d6fc;
+}
+
+.classDisplayNone {
+  display: none !important;
+}
+
+.classDisplayBlock {
+  display: block !important;
+}
+
+.material-icon-cursor {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button {
+  max-height: 36px;
+}

@@ -7,28 +7,29 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import { Link, Switch } from "@mui/material";
-import { useTodos } from "../../hooks/todo_common";
-import { loadStatusFunc } from "../../custom.js/todo_style";
+
+import { Route, Routes } from "react-router";
+import { Status } from "./Status";
+
 // import { ThemeContext } from "@mui/styled-engine";
 const pages = [
-  {
-    title: "Home",
-    href: "react_ToDos/build/",
-  },
-  {
-    title: "Todos",
-    href: "react_ToDos/build/todolist",
-  },
+  // {
+  //   title: "Home",
+  //   href: "/",
+  // },
+  // {
+  //   title: "Todos",
+  //   href: "/todolist",
+  // },
 ];
 
 export const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const { status } = useTodos();
-  const [color] = loadStatusFunc(status);
+
   // const { toggleTheme } = useContext(ThemeContext);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -92,7 +93,15 @@ export const Header = (props) => {
             >
               {pages.map((page, index) => (
                 <MenuItem key={index}>
-                  <Link onClick={handleCloseNavMenu} href={page.href}>
+                  <Link
+                    onClick={handleCloseNavMenu}
+                    // to={{
+                    //   pathname: `${page.href}`,
+                    //   hash: "#the-hash",
+                    //   state: { fromDashboard: true },
+                    // }}
+                    href={page.href}
+                  >
                     {page.title}
                   </Link>
                 </MenuItem>
@@ -103,15 +112,20 @@ export const Header = (props) => {
             sx={{ gap: 3, flexGrow: 1, display: { xs: "none", md: "flex" } }}
           >
             {pages.map((page, index) => (
-              <Button
+              <Link
+                // to={{
+                //   pathname: `${page.href}`,
+                //   hash: "#the-hash",
+                //   state: { fromDashboard: true },
+                // }}
                 href={page.href}
-                variant="text"
+                variant="buttons"
                 key={index}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page.title}
-              </Button>
+              </Link>
             ))}
           </Box>
           <Box>
@@ -125,18 +139,10 @@ export const Header = (props) => {
                   justifyContent: "space-between",
                 }}
               >
-                <Typography variant="span">Status:</Typography>
-                <Typography
-                  variant="span"
-                  style={{
-                    background: color,
-                    display: "inline-block",
-                    width: "20px",
-                    height: "20px",
-                    borderRadius: "50%",
-                    marginRight: "9px",
-                  }}
-                ></Typography>
+                <Routes>
+                  <Route path={"/"} element={<Status />} />
+                  {/* <Route path={"/"} element={``} /> */}
+                </Routes>
               </Box>
               <Box>
                 <Typography variant="span">

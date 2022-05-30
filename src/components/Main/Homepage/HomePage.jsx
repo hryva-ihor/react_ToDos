@@ -44,9 +44,9 @@ export const HomePage = () => {
         </ListItem>
         <ListItem>
           <Link
-            download
+            target="_blank"
             underline="none"
-            href="./Junior_Frontend_Developer_Hryva_Ihor.pdf"
+            href="https://drive.google.com/file/d/1Hz9arekh0PYpa8RepHJEC4CT-I6APF7t/view?usp=sharing"
           >
             CV
           </Link>
