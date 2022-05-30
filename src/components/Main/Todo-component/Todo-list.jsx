@@ -1,140 +1,78 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLocalStorage } from "../../../hooks/common";
-import {
-  getTodosData,
-  deletTodo,
-  updateTodos,
-  addNewTodo,
-} from "../../../services/serveces";
-import {
-  reductInputTitleClasses,
-  loadStatusFunc,
-} from "../../../custom.js/style";
+import React from "react";
+import { useTodos } from "../../../hooks/todo_common";
 import { TodoAddItem } from "./Todo-options/Todo-add-item";
 import { TodoFilter } from "./Todo-options/Todo-filter";
 import { TodoItem } from "./Todo-options/Todo-item";
-import { ThemeContext } from "../../../context/context";
+import { loadStatusFunc } from "../../../custom.js/todo_style";
+import { Grid } from "@mui/material";
+import Box from "@mui/material/Box";
 export const TodoList = () => {
-  const [todos, setTodos] = useState([]);
-  const [status, setStatus] = useState("Idle");
-  const [newInputText, setNewInputText] = useState("");
-  const [redInputText, setRedInputText] = useState("");
-  const [filter, setFilter] = useLocalStorage("filter", "all");
-  const [color, displayStatus] = loadStatusFunc(status);
-  const { toggleTheme } = useContext(ThemeContext);
-  // const [count, setCount] = useState(0);
-  //const filterTodos = useMemo(() => {}
-  let filterTodos = todos;
-  if (filter !== "all") {
-    filterTodos = todos.filter((todo) => {
-      return (
-        (filter === "done" && todo.completed) ||
-        (filter === "notDone" && !todo.completed)
-      );
-    });
-  }
-
-  //, [filter, todos]);
-
-  useEffect(() => {
-    setStatus("Progress");
-    getTodosData()
-      .then(({ data }) => {
-        setTodos(data);
-      })
-      .then(() => {
-        setStatus("Loaded");
-      })
-      .catch(() => {
-        setStatus("Error");
-      });
-  }, []);
-
+  const {
+    onDone,
+    delTodo,
+    addTodo,
+    redTitle,
+    saveBtn,
+    newInputText,
+    setNewInputText,
+    redInputText,
+    setRedInputText,
+    filter,
+    setFilter,
+    filterTodos,
+    status,
+    loadingBtn,
+    setLoadingBtn,
+  } = useTodos();
+  const [, displayStatus] = loadStatusFunc(status);
   const OnDoneBtnClick = (id) => {
-    const item = todos.find((todo) => todo.id === id);
-    const newItem = { ...item, completed: !item.completed };
-    updateTodos(newItem, id);
-    let newTodos = todos.map((item) => (item.id === id ? newItem : item));
-    setTodos(newTodos);
+    onDone(id);
   };
 
   const OnDelBtnClick = (id) => {
-    deletTodo(id);
-    const newTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(newTodos);
+    delTodo(id);
   };
 
   const inputValue = (e) => {
     return setNewInputText(e.target.value);
   };
 
-  // const addNewTodoList = useCallback(
-  //   (e) => {
   const addNewTodoList = (e) => {
     e.preventDefault();
-    if (newInputText) {
-      const newTodoList = {
-        title: newInputText,
-        completed: false,
-      };
-      addNewTodo(newTodoList).then(({ data }) => {
-        setTodos([...todos, data]);
-        setNewInputText("");
-      });
-    } else {
-      alert("your todo list empty");
-      return false;
-    }
-  }; //   [todos]
-  // );
+    setLoadingBtn(true);
+    addTodo();
+  };
+
   const redactTitle = (id) => {
-    const item = todos.find((todo) => todo.id === id);
-    setRedInputText(item.title);
-    reductInputTitleClasses(id);
-    document.querySelector(`#input${id}`).focus();
+    redTitle(id);
   };
   const onChangeRedactInput = (e) => {
     return setRedInputText(e.target.value);
   };
   const onSaveBtnClick = (id) => {
-    if (redInputText) {
-      const item = todos.find((todo) => todo.id === id);
-      const newItem = { ...item, title: redInputText };
-      updateTodos(newItem, id);
-      let newTodos = todos.map((item) => (item.id === id ? newItem : item));
-      setTodos(newTodos);
-      reductInputTitleClasses(id);
-    } else {
-      alert("todo list is empty");
-      if (window.confirm("want delet todo list?")) {
-        OnDelBtnClick(id);
-      }
-      return false;
-    }
+    saveBtn(id);
   };
+
   return (
-    <div className="todo-block">
-      {/* <div>{Counter(0)}</div> */}
-      <div className="todo__load-theme">
-        <h5>
-          Load status: <span style={{ color: color }}>{status}</span>{" "}
-        </h5>
-        <div>
-          <span>Toggle theme</span>
-          <input type="checkbox" className="toggle" onClick={toggleTheme} />
-        </div>
-      </div>
-      <TodoFilter filter={filter} setFilter={setFilter} />
-      <TodoAddItem
-        inputValue={inputValue}
-        addNewTodoList={addNewTodoList}
-        titleValue={newInputText}
-      />
+    <Box className="todo-block">
+      <Grid container>
+        <Grid item xs={12} sm={6}>
+          <TodoAddItem
+            inputValue={inputValue}
+            addNewTodoList={addNewTodoList}
+            titleValue={newInputText}
+            loadingBtn={loadingBtn}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TodoFilter filter={filter} setFilter={setFilter} />
+        </Grid>
+      </Grid>
       <div
         style={{ display: !displayStatus ? "block" : "none" }}
         className="lds-hourglass"
       ></div>
-      <ul>
+      <Grid container spacing={2}>
         {filterTodos.map((todo, index) => {
           return (
             <TodoItem
@@ -150,22 +88,7 @@ export const TodoList = () => {
             />
           );
         })}
-      </ul>
-    </div>
+      </Grid>
+    </Box>
   );
 };
-
-// const Counter = (initialCount) => {
-//   return (
-//     <>
-//       Count: {count}
-//       <button onClick={() => setCount(initialCount)}>Скинути</button>
-//       <button onClick={() => setCount((prevCount) => prevCount - 1)}>
-//         -
-//       </button>
-//       <button onClick={() => setCount((prevCount) => prevCount + 1)}>
-//         +
-//       </button>
-//     </>
-//   );
-// };

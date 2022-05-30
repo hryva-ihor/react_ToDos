@@ -16,7 +16,7 @@ export const loadStatusFunc = (status) => {
         displayStatus = false;
         break;
     case "Loaded":
-        color = "green";
+        color = "lightgreen";
         displayStatus = true;
         break;
     default:
@@ -27,14 +27,13 @@ export const loadStatusFunc = (status) => {
 };
 export const todoElementStyle = (completed) => {
     return {
-        todoItemStyle:{backgroundColor: !completed ? "transparent" : "#6890b0"},
-        todoBtnStyle:{backgroundColor: !completed ? "#1db41d" : "yellow",color: !completed ? "white" : "black"},
+        todoItemStyle:{backgroundColor: !completed ? "transparent" : "rgb(48,81,107,0.4)"},
+        todoBtnStyle: !completed ? "success" : "secondary",
         todoItemListStyle:{textDecoration: !completed ? "none" : "line-through" },
         redactBtnStyle:{visibility: !completed ? "visible" : "hidden" }
     ,
     };
 };
-
 // add/remove classes for redact input for todo title
 const returnElementForRedactInput = (id) => {
     let li = document.querySelector(`#list${id}`);
@@ -54,5 +53,7 @@ export const reductInputTitleClasses = (id) => {
     input.classList.contains(block) ? input.classList.remove(block) : input.classList.add(block);
 
 } 
+
+
 
 

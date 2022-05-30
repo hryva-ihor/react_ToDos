@@ -1,20 +1,17 @@
 import "./Main.scss";
 import { TodoList } from "./Todo-component/Todo-list";
-
-import { useContext } from "react";
-import { ThemeContext } from "../../context/context";
+import { Route, Routes } from "react-router";
+import { HomePage } from "./Homepage/HomePage";
+import { NotFoundPage } from "./notFoundPage/NotFoundPage";
 
 export const Main = () => {
-  const { currentTheme } = useContext(ThemeContext);
   return (
-    <main
-      style={{
-        background: currentTheme.main.background,
-        color: currentTheme.main.color,
-      }}
-      className="main-container"
-    >
-      <TodoList />
+    <main className="main-container">
+      <Routes>
+        <Route path={"/todolist"} element={<TodoList />} />
+        <Route path={"/"} element={<HomePage />} />
+        <Route path={"*"} element={<NotFoundPage />} />
+      </Routes>
     </main>
   );
 };

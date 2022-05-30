@@ -7,11 +7,17 @@
     }
   }
 .redact-input{
-  width: 100%;
-  max-width: 400px;
-  padding: 5px;
-  border: 2px dashed red;
-  display: none;
+  display: none !important;
+  margin-right: 10px;
+  border-radius: 5px;
+  padding: 0 5px;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  background-color: transparent;
+  outline: none;
+  border: none; 
+  border: solid 1px  rgb(0, 214, 252);;
 }
 .classDisplayNone{
   display: none !important;
@@ -19,7 +25,10 @@
 .classDisplayBlock{
   display: block !important;
 }
-textarea{
-  resize: none;
-  font-size: inherit;
+.material-icon-cursor{
+  cursor: pointer;
+  margin-left: 10px;
+}
+button{
+  max-height: 36px ;
 }

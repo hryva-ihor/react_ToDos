@@ -1,68 +1,101 @@
-import { todoElementStyle } from "../../../../custom.js/style";
+import { Button, Grid, Typography } from "@mui/material";
+import { todoElementStyle } from "../../../../custom.js/todo_style";
 import "../Todo-style.scss";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import Box from "@mui/material/Box";
+import CheckIcon from "@mui/icons-material/Check";
+import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
+import Tooltip from "@mui/material/Tooltip";
 export const TodoItem = (props) => {
-  const todo = props.todo;
+  const {
+    todo,
+    onChangeRedactInput,
+    redInputValue,
+    onSaveBtnClick,
+    OnDoneBtnClick,
+    OnDelBtnClick,
+    redactTitle,
+  } = props;
   const { completed, title, id } = todo;
-
   const { todoItemStyle, todoBtnStyle, todoItemListStyle, redactBtnStyle } =
     todoElementStyle(completed);
   return (
-    <>
-      <div style={todoItemStyle} className="todo-item">
-        <button
-          style={todoBtnStyle}
-          className="todo-item__btn-done"
-          onClick={() => {
-            props.OnDoneBtnClick(id);
-          }}
-        >
-          {completed ? "Return?" : "DONE"}
-        </button>
-        <div id={`divList` + id} style={{ display: "flex" }}>
-          <li
+    <Grid item xs={12}>
+      <Box
+        sx={{ display: "flex", alignItems: "center" }}
+        style={todoItemStyle}
+        className="todo-item"
+      >
+        <Tooltip title={`${!completed ? "done" : "return"}`} placement="top">
+          <Button
+            sx={{ m: 1 }}
+            variant="contained"
+            color={todoBtnStyle}
+            className="todo-item__btn-done"
+            onClick={() => {
+              OnDoneBtnClick(id);
+            }}
+          >
+            {completed ? <SettingsBackupRestoreIcon /> : <CheckIcon />}
+          </Button>
+        </Tooltip>
+        <Box id={`divList` + id} style={{ display: "flex" }}>
+          <Typography
+            variant="span"
             key={id}
             id={`list` + id}
             style={todoItemListStyle}
             className="todo-item__list"
+            sx={{ p: 1, display: "flex", alignItems: "center" }}
           >
             {title}
-          </li>
-          <textarea
+          </Typography>
+          <input
             id={`input` + id}
             type="text"
             className="redact-input"
-            value={props.redInputValue}
-            onChange={props.onChangeRedactInput}
+            value={redInputValue}
+            onChange={onChangeRedactInput}
           />
-          <button
+
+          <Button
+            variant="contained"
+            color="success"
             style={redactBtnStyle}
             id={`saveBtn` + id}
             className="todo-item__btn-done save-btn"
             onClick={() => {
-              props.onSaveBtnClick(id);
+              onSaveBtnClick(id);
             }}
           >
-            Save?
-          </button>
-          <button
-            style={redactBtnStyle}
-            id={`redBtn` + id}
-            className="correct-btn-style"
-            onClick={() => {
-              props.redactTitle(id);
-            }}
-          ></button>
-        </div>
+            Save
+          </Button>
+          <Tooltip title="edit" placement="top">
+            <EditIcon
+              className="material-icon-cursor"
+              sx={{ transform: "scale(0.7)", display: redactBtnStyle, mr: 1 }}
+              id={`redBtn` + id}
+              onClick={() => {
+                redactTitle(id);
+              }}
+            />
+          </Tooltip>
+        </Box>
 
-        <button
-          onClick={() => {
-            props.OnDelBtnClick(id);
-          }}
-          className="todo-item__btn-delet"
-        >
-          DEL
-        </button>
-      </div>
-    </>
+        <Tooltip title="delet" placement="top">
+          <Button
+            sx={{ m: 1 }}
+            variant="outlined"
+            color="error"
+            onClick={() => {
+              OnDelBtnClick(id);
+            }}
+          >
+            <DeleteIcon />
+          </Button>
+        </Tooltip>
+      </Box>
+    </Grid>
   );
 };
