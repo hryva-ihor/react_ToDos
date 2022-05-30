@@ -17,11 +17,11 @@ import { loadStatusFunc } from "../../custom.js/todo_style";
 const pages = [
   {
     title: "Home",
-    href: "/",
+    href: "react_ToDos/build/",
   },
   {
     title: "Todos",
-    href: "/todolist",
+    href: "react_ToDos/build/todolist",
   },
 ];
 
